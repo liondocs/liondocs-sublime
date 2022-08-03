@@ -4,6 +4,8 @@
 
 This is an LionDocs plugin for Sublime Text.
 
+[Demo](https://www.youtube.com/watch?v=RRPShnY_10E)
+
 ## Installation
 
 For now the plugin is not part of the [Package Control](https://packagecontrol.io/) plugin repository so it must be installed manually.
