@@ -1,0 +1,6 @@
+[
+  {
+  	"caption": "Get SHA",
+  	"command": "getsha"
+  }
+]

@@ -1,0 +1,42 @@
+[{
+  "caption": "LionDocs",
+  "id": "liondocs",
+  "children":
+    [
+      {
+        "id":"transfer",
+        "caption":"Transfer",
+        "children":[
+          {
+            "id":"transfer_same_file",
+            "caption":"Same file",
+            "command": "transfer",
+            "args": { "mode":"same_file" }
+          },
+          {
+            "id":"transfer_with_sha",
+            "caption":"With SourceCommit",
+            "command": "transfer",
+            "args": { "mode":"with_sha" }
+          },
+        ]
+      },
+      {
+        "id": "getsha",
+        "caption": "Get SHA",
+        "children":[
+          {
+            "caption":"To cursor position",
+            "command": "getsha",
+            "args": { "mode":"insert" }
+          },
+          {
+            "caption":"To clipboard",
+            "command": "getsha",
+            "args": { "mode":"clipboard" }
+          }
+        ]
+      }
+    ]
+}]
+
