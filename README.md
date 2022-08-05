@@ -1,6 +1,6 @@
 # LionDocs Sublime Text Plugin
 
-[![Latest Stable Version](https://img.shields.io/badge/version-1.0.0--alpha-informational)](https://github.com/liondocs/liondocs-sublime/releases)
+[![Latest Stable Version](https://img.shields.io/badge/version-1.0.0--beta-informational)](https://github.com/liondocs/liondocs-sublime/releases)
 
 This is an LionDocs plugin for Sublime Text.
 
@@ -42,10 +42,10 @@ Plugin functions are executed from the Sublime Text context menu.
 
 * **Transfer**: Copies the selected file in content to translated-content in its respective path.
 	* **Same file**: Copies exactly the same file.
-	* **With SourceCommit (TODO)**: Copies the file and adds the respective SHA in metadata format.
+	* **With SourceCommit**: Copies the file and adds the respective SHA in metadata format.
 * **Get SHA**: Gets the SHA commit of the selected file but in content.
 	* **To cursor position**: Inserts the SHA commit in metadata format at the current cursor position.
-	* **To clipboard (TODO)**: Copies the SHA commit to the clipboard.
+	* **To clipboard**: Copies the SHA commit to the clipboard.
 
 ## Advice
 
