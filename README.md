@@ -22,7 +22,7 @@ Go to `Preferences` -> `Browse Packages` -> `LionDocs` -> `Settings`
 
 Your user configuration file should look like this:
 
-```json
+```jsonc
 {
   // Absolute paths to the repositories
   "paths":{
