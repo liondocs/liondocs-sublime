@@ -42,7 +42,10 @@ class Shaman(object):
         rel_path = self.target_path.relative_to(self.repo_path)
         # May freeze sublime text gui due to subprocess
         # implement threading?
-        os.chdir(str(self.repo_path))  # here?
+
+        # Change current working dir
+        os.chdir(str(self.repo_path))
+
         command = "git log -1 --pretty=%H " + str(rel_path)
         last_commit = subprocess.check_output(command, shell=True)
         last_commit = last_commit.decode().strip()
