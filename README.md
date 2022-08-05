@@ -40,10 +40,10 @@ Plugin functions are executed from the Sublime Text context menu.
 
 ### Functions
 
-* **Transfer**: Copies the selected file in content to translated-content in its respective path.
+* **Transfer**: Copies the current opened file file in content to translated-content in its respective path.
 	* **Same file**: Copies exactly the same file.
 	* **With SourceCommit**: Copies the file and adds the respective SHA in metadata format.
-* **Get SHA**: Gets the SHA commit of the selected file but in content.
+* **Get SHA**: Gets the SHA commit of the current opened file but in content.
 	* **To cursor position**: Inserts the SHA commit in metadata format at the current cursor position.
 	* **To clipboard**: Copies the SHA commit to the clipboard.
 
