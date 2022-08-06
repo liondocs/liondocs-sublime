@@ -30,9 +30,13 @@ Your user configuration file should look like this:
     "translated-content": ""
   },
   // It must be the same as the one in translated-content
-  "lang_code":""
+  "lang_code":"",
+  // Show alerts in successfully silent operations
+  "alerts":true
 }
 ```
+
+> **Note:** Silent operations are those that although they are executed correctly, they do not instantly show some sign that they were executed. As for example the transfer of a file.
 
 ## Usage
 

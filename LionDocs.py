@@ -16,10 +16,11 @@ except Exception:
 CONTENT_PATH = None
 TRANSLATED_CONTENT_PATH = None
 LANG_CODE = None
+ALERTS = None
 
-cpath = str(Path("\\content\\"))
-tcpath = str(Path("\\translated-content\\"))
-uspath = str(Path("\\en-us\\"))
+cpath = str(Path("\\content"))
+tcpath = str(Path("\\translated-content"))
+uspath = str(Path("\\en-us"))
 
 valid_exts = ('.md', '.html')
 exts_dict = {'.md': '.html', '.html': '.md'}
@@ -29,10 +30,18 @@ def plugin_loaded():
     global CONTENT_PATH
     global TRANSLATED_CONTENT_PATH
     global LANG_CODE
+    global ALERTS
+
     settings = sublime.load_settings('LionDocs.sublime-settings')
     CONTENT_PATH = settings.get('paths').get('content')
     TRANSLATED_CONTENT_PATH = settings.get('paths').get('translated-content')
     LANG_CODE = settings.get('lang_code')
+    ALERTS = settings.get('alerts')
+
+
+def alert(message):
+    if ALERTS:
+        sublime.message_dialog(message)
 
 
 class getshaCommand(sublime_plugin.TextCommand):
@@ -43,7 +52,8 @@ class getshaCommand(sublime_plugin.TextCommand):
         self.view.insert(edit, self.view.sel()[0].begin(), string)
 
     def run(self, edit, mode):
-        # TODO: Just act in files inside content or translated content
+        # TODO: Just work when function is called in a file
+        # inside content or translated-content
         target_file = Path(self.view.file_name())
         file_ext = target_file.suffix
 
@@ -76,8 +86,11 @@ class getshaCommand(sublime_plugin.TextCommand):
 
             if mode == 'insert':
                 self.__insert_in_cursor(edit, meta)
+
             elif mode == 'clipboard':
                 sublime.set_clipboard(meta)
+
+                alert("SHA successfully copied to clipboard!")
 
 
 class transferCommand(sublime_plugin.TextCommand):
@@ -104,7 +117,8 @@ class transferCommand(sublime_plugin.TextCommand):
 
             if mode == 'same_file':
                 final_file.write(original_content)
-                sublime.message_dialog("File transfered successfully!")
+
+                alert("File transfered successfully!")
 
             elif mode == 'with_sha':
                 shaman = Shaman(file_to_transfer, CONTENT_PATH)
@@ -113,3 +127,5 @@ class transferCommand(sublime_plugin.TextCommand):
                 sep_index = [i.start() for i in re.finditer('---', original_content)][1]  # get separator index
                 final_content = original_content[:sep_index] + meta + "\n" + original_content[sep_index:]
                 final_file.write(final_content)
+
+                alert("File with sourceCommit transfered successfully!")
