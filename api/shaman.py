@@ -1,6 +1,5 @@
 import os
 import subprocess
-from pathlib import Path
 
 
 class Shaman(object):
@@ -56,12 +55,3 @@ class Shaman(object):
         elif returnas == 'meta':
             # Return SHA in metadata format
             return self.__build_meta(last_commit)
-
-
-R"""
-file = Path(R'C:\Users\Jalkhov\Documents\Github\mdn\content\files\en-us\web\accessibility\index.md')
-repo = Path(R'C:\Users\Jalkhov\Documents\Github\mdn\content')
-sm = Shaman(file, repo)
-sha = sm.get_file_sha(returnas='raw')
-print(sha)
-"""
