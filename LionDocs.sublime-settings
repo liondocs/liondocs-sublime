@@ -5,5 +5,7 @@
     "translated-content": ""
   },
   // It must be the same as the one in translated-content
-  "lang_code":""
+  "lang_code":"",
+  // Show alerts in successfully silent operations
+  "alerts":true
 }

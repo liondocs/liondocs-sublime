@@ -1,0 +1,5 @@
+Thank you for installing LionDocs -- an initiative of MDN's Spanish localization team.
+It is a set of tools designed to facilitate and speed up the translation and maintenance
+process of MDN documents. This is the version for the Sublime Text Editor.
+
+https://github.com/liondocs

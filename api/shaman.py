@@ -1,6 +1,5 @@
 import os
 import subprocess
-from pathlib import Path
 
 
 class Shaman(object):
@@ -42,7 +41,10 @@ class Shaman(object):
         rel_path = self.target_path.relative_to(self.repo_path)
         # May freeze sublime text gui due to subprocess
         # implement threading?
-        os.chdir(str(self.repo_path))  # here?
+
+        # Change current working dir
+        os.chdir(str(self.repo_path))
+
         command = "git log -1 --pretty=%H " + str(rel_path)
         last_commit = subprocess.check_output(command, shell=True)
         last_commit = last_commit.decode().strip()
@@ -53,12 +55,3 @@ class Shaman(object):
         elif returnas == 'meta':
             # Return SHA in metadata format
             return self.__build_meta(last_commit)
-
-
-R"""
-file = Path(R'C:\Users\Jalkhov\Documents\Github\mdn\content\files\en-us\web\accessibility\index.md')
-repo = Path(R'C:\Users\Jalkhov\Documents\Github\mdn\content')
-sm = Shaman(file, repo)
-sha = sm.get_file_sha(returnas='raw')
-print(sha)
-"""

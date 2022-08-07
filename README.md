@@ -1,6 +1,6 @@
 # LionDocs Sublime Text Plugin
 
-[![Latest Stable Version](https://img.shields.io/badge/version-1.0.0--alpha-informational)](https://github.com/liondocs/liondocs-sublime/releases)
+[![Latest Stable Version](https://img.shields.io/badge/version-1.0.0--beta-informational)](https://github.com/liondocs/liondocs-sublime/releases)
 
 This is an LionDocs plugin for Sublime Text.
 
@@ -22,7 +22,7 @@ Go to `Preferences` -> `Browse Packages` -> `LionDocs` -> `Settings`
 
 Your user configuration file should look like this:
 
-```json
+```jsonc
 {
   // Absolute paths to the repositories
   "paths":{
@@ -30,9 +30,13 @@ Your user configuration file should look like this:
     "translated-content": ""
   },
   // It must be the same as the one in translated-content
-  "lang_code":""
+  "lang_code":"",
+  // Show alerts in successfully silent operations
+  "alerts":true
 }
 ```
+
+> **Note:** Silent operations are those that although they are executed correctly, they do not instantly show some sign that they were executed. As for example the transfer of a file.
 
 ## Usage
 
@@ -40,12 +44,12 @@ Plugin functions are executed from the Sublime Text context menu.
 
 ### Functions
 
-* **Transfer**: Copies the selected file in content to translated-content in its respective path.
+* **Transfer**: Copies the current opened file file in content to translated-content in its respective path.
 	* **Same file**: Copies exactly the same file.
-	* **With SourceCommit (TODO)**: Copies the file and adds the respective SHA in metadata format.
-* **Get SHA**: Gets the SHA commit of the selected file but in content.
+	* **With SourceCommit**: Copies the file and adds the respective SHA in metadata format.
+* **Get SHA**: Gets the SHA commit of the current opened file but in content.
 	* **To cursor position**: Inserts the SHA commit in metadata format at the current cursor position.
-	* **To clipboard (TODO)**: Copies the SHA commit to the clipboard.
+	* **To clipboard**: Copies the SHA commit to the clipboard.
 
 ## Advice
 
