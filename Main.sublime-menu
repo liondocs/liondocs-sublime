@@ -12,14 +12,18 @@
           {
             "caption": "LionDocs",
             "children": [
+              // Settings - Default
               {
-                "caption": "Settings",
-                "command": "edit_settings",
-                "args": {
-                  "base_file": "${packages}/liondocs/LionDocs.sublime-settings",
-                  "default": "// LionDocs Settings - User\n{\n\t$0\n}\n"
-                }
-              }
+                  "caption": "Settings – Default",
+                  "command": "open_file",
+                  "args": {"file": "${packages}/liondocs-sublime/LionDocs.sublime-settings"}
+              },
+              // Settings - User
+              {
+                  "caption": "Settings – User",
+                  "command": "open_file",
+                  "args": {"file": "${packages}/User/LionDocs.sublime-settings", "contents": "{\n\t$0\n}"}
+              },
             ]
           }
         ]
