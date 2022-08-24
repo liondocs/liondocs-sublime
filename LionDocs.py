@@ -5,8 +5,6 @@ from pathlib import Path
 import sublime
 import sublime_plugin
 
-__version__ = "1.0.0"
-
 try:
     # I hate Python import system xd
     import sys

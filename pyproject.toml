@@ -1,6 +1,0 @@
-[tool.semantic_release]
-version_variable = "LionDocs.py:__version__"
-commit_subject = "chore(release): v{version}"
-commit_message = "Released version {version}. See the changelog for changes."
-branch = "main"
-version_source = "tag"
