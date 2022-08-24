@@ -16,7 +16,7 @@
                 "caption": "Settings",
                 "command": "edit_settings",
                 "args": {
-                  "base_file": "${packages}/mdntool/LionDocs.sublime-settings",
+                  "base_file": "${packages}/liondocs/LionDocs.sublime-settings",
                   "default": "// LionDocs Settings - User\n{\n\t$0\n}\n"
                 }
               }
