@@ -8,14 +8,19 @@ This is an LionDocs plugin for Sublime Text.
 
 For now the plugin is not part of the [Package Control](https://packagecontrol.io/) plugin repository so it must be from repository.
 
+But first, a configuration must be added to `Package Control`:
+
+* Go to `Preferences` -> `Package Settings` -> `Package Control` -> `Settings`
+* Add "package_name_map": { "liondocs-sublime": "LionDocs" }
+
+Now let's install our Plugin
+
 * Open Console and select `Add repository`
 * Add `https://github.com/liondocs/liondocs-sublime.git` and press Enter
 * In console, select `Install package` and press Enter
 * Search `liondocs-sublime` and Install
 
-Adicionalmente se debe agregar una configuración a `Package Control`:
-
-* Go to `Preferences` -> `Package Settings` -> `Package Control`
+Remember, all this is as long as the Plugin is not part of `Package Control`.
 
 ## Configuration
 
