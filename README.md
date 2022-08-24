@@ -13,6 +13,10 @@ For now the plugin is not part of the [Package Control](https://packagecontrol.i
 * In console, select `Install package` and press Enter
 * Search `liondocs-sublime` and Install
 
+Adicionalmente se debe agregar una configuración a `Package Control`:
+
+* Go to `Preferences` -> `Package Settings` -> `Package Control`
+
 ## Configuration
 
 Go to `Preferences` -> `Browse Packages` -> `LionDocs` -> `Settings`
