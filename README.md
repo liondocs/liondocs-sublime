@@ -1,7 +1,5 @@
 # LionDocs Sublime Text Plugin
 
-[![Latest Stable Version](https://img.shields.io/badge/version-1.0.0--beta-informational)](https://github.com/liondocs/liondocs-sublime/releases)
-
 This is an LionDocs plugin for Sublime Text.
 
 [Demo](https://www.youtube.com/watch?v=RRPShnY_10E)
