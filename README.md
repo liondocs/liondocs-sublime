@@ -24,7 +24,7 @@ Remember, all this is as long as the Plugin is not part of `Package Control`.
 
 ## Configuration
 
-Go to `Preferences` -> `Browse Packages` -> `LionDocs` -> `Settings`
+Go to `Preferences` -> `Package Packages` -> `LionDocs` -> `Settings`
 
 Your user configuration file should look like this:
 
