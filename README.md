@@ -15,7 +15,7 @@ But first, a configuration must be added to `Package Control`:
 
 Now let's install our Plugin
 
-* Open Console and select `Add repository`
+* Hit `Control + Shift + p` and select `Add repository`
 * Add `https://github.com/liondocs/liondocs-sublime.git` and press Enter
 * In console, select `Install package` and press Enter
 * Search `liondocs-sublime` and Install
