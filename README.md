@@ -8,7 +8,7 @@ This is an LionDocs plugin for Sublime Text.
 
 For now the plugin is not part of the [Package Control](https://packagecontrol.io/) plugin repository so it must be from repository.
 
-But first, a configuration must be added to `Package Control`:
+But first, a configuration must be added to **Package Control**:
 
 * Go to `Preferences` -> `Package Settings` -> `Package Control` -> `Settings`
 * Add `"package_name_map": { "liondocs-sublime": "LionDocs" }`
@@ -20,7 +20,7 @@ Now let's install our Plugin
 * Open **Command Palette** again, select `Install package` and press Enter
 * Search `LionDocs` and Install
 
-Remember, all this is as long as the Plugin is not part of `Package Control`.
+Remember, all this is as long as the Plugin is not part of **Package Control** channel.
 
 ## Configuration
 
@@ -68,6 +68,6 @@ mdn/
 ├─ translated-content/
 ```
 
-So with different structures it can cause problems. The root does not necessarily have to be `mdn`, but the sub-directories must have the same name and be in the same folder.
+So with different structures it can cause problems. The root does not necessarily have to be *mdn*, but the sub-directories must have the same name and be in the same folder.
 
 Testedin in **Windows** and **Ubuntu**
