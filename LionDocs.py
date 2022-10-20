@@ -13,6 +13,8 @@ try:
 except Exception:
     from api import Shaman
 
+__version__ = "0.0.1"
+
 CONTENT_PATH = None
 TRANSLATED_CONTENT_PATH = None
 LANG_CODE = None
