@@ -15,10 +15,10 @@ But first, a configuration must be added to `Package Control`:
 
 Now let's install our Plugin
 
-* Hit `Control or Command + Shift + p` and select `Add repository`
+* Open **Open Command Palette** (`Control or Command + Shift + p`) and select `Add repository`
 * Add `https://github.com/liondocs/liondocs-sublime.git` and press Enter
-* In console, select `Install package` and press Enter
-* Search `liondocs-sublime` and Install
+* Open **Open Command Palette** again, select `Install package` and press Enter
+* Search `LionDocs` and Install
 
 Remember, all this is as long as the Plugin is not part of `Package Control`.
 
@@ -38,6 +38,7 @@ Your user configuration file should look like this:
   // It must be the same as the one in translated-content
   "lang_code":"",
   // Show alerts in successfully silent operations
+  // If False just show message in Sublime Text Console
   "alerts":true
 }
 ```
