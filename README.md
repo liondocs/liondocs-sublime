@@ -11,7 +11,7 @@ For now the plugin is not part of the [Package Control](https://packagecontrol.i
 But first, a configuration must be added to `Package Control`:
 
 * Go to `Preferences` -> `Package Settings` -> `Package Control` -> `Settings`
-* Add "package_name_map": { "liondocs-sublime": "LionDocs" }
+* Add `"package_name_map": { "liondocs-sublime": "LionDocs" }`
 
 Now let's install our Plugin
 
