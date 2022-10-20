@@ -15,16 +15,16 @@ But first, a configuration must be added to `Package Control`:
 
 Now let's install our Plugin
 
-* Open **Open Command Palette** (`Control or Command + Shift + p`) and select `Add repository`
+* Open **Command Palette** (`Control or Command + Shift + p`) and select `Add repository`
 * Add `https://github.com/liondocs/liondocs-sublime.git` and press Enter
-* Open **Open Command Palette** again, select `Install package` and press Enter
+* Open **Command Palette** again, select `Install package` and press Enter
 * Search `LionDocs` and Install
 
 Remember, all this is as long as the Plugin is not part of `Package Control`.
 
 ## Configuration
 
-Go to `Preferences` -> `Browse Packages` -> `LionDocs` -> `Settings`
+Go to `Preferences` -> `Package Settings` -> `LionDocs` -> `Settings`
 
 Your user configuration file should look like this:
 
@@ -70,4 +70,4 @@ mdn/
 
 So with different structures it can cause problems. The root does not necessarily have to be `mdn`, but the sub-directories must have the same name and be in the same folder.
 
-Just tested in Windows.
+Testedin in **Windows** and **Ubuntu**
