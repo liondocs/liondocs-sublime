@@ -152,11 +152,13 @@ class transferCommand(sublime_plugin.TextCommand):
                 original_content = original_file.read()
 
                 if mode == 'same_file':
+                    # Transfer exactly same file
                     final_file.write(original_content)
 
                     alert("File transfered successfully!")
 
                 elif mode == 'with_sha':
+                    # Transfer exactly same file but with sha commit
                     shaman = Shaman(file_to_transfer, CONTENT_PATH)
                     meta = shaman.get_file_sha(returnas='meta')
 
