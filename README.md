@@ -8,23 +8,23 @@ This is an LionDocs plugin for Sublime Text.
 
 For now the plugin is not part of the [Package Control](https://packagecontrol.io/) plugin repository so it must be from repository.
 
-But first, a configuration must be added to `Package Control`:
+But first, a configuration must be added to **Package Control**:
 
 * Go to `Preferences` -> `Package Settings` -> `Package Control` -> `Settings`
-* Add "package_name_map": { "liondocs-sublime": "LionDocs" }
+* Add `"package_name_map": { "liondocs-sublime": "LionDocs" }`
 
 Now let's install our Plugin
 
-* Hit `Control or Command + Shift + p` and select `Add repository`
+* Open **Command Palette** (`Control or Command + Shift + p`) and select `Add repository`
 * Add `https://github.com/liondocs/liondocs-sublime.git` and press Enter
-* In console, select `Install package` and press Enter
-* Search `liondocs-sublime` and Install
+* Open **Command Palette** again, select `Install package` and press Enter
+* Search `LionDocs` and Install
 
-Remember, all this is as long as the Plugin is not part of `Package Control`.
+Remember, all this is as long as the Plugin is not part of **Package Control** channel.
 
 ## Configuration
 
-Go to `Preferences` -> `Browse Packages` -> `LionDocs` -> `Settings`
+Go to `Preferences` -> `Package Settings` -> `LionDocs` -> `Settings`
 
 Your user configuration file should look like this:
 
@@ -38,6 +38,7 @@ Your user configuration file should look like this:
   // It must be the same as the one in translated-content
   "lang_code":"",
   // Show alerts in successfully silent operations
+  // If False just show message in Sublime Text Console
   "alerts":true
 }
 ```
@@ -67,6 +68,6 @@ mdn/
 ├─ translated-content/
 ```
 
-So with different structures it can cause problems. The root does not necessarily have to be `mdn`, but the sub-directories must have the same name and be in the same folder.
+So with different structures it can cause problems. The root does not necessarily have to be *mdn*, but the sub-directories must have the same name and be in the same folder.
 
-Just tested in Windows.
+Testedin in **Windows** and **Ubuntu**

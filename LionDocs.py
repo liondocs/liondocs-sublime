@@ -13,35 +13,88 @@ try:
 except Exception:
     from api import Shaman
 
+
+def iPath(path, parent=False):
+    """
+    Receive path string, convert to system path and
+    return path as string
+    """
+    if parent:
+        return str(Path(path).parent)
+    return str(Path(path))
+
+
+__version__ = "0.0.1"
+
 CONTENT_PATH = None
 TRANSLATED_CONTENT_PATH = None
 LANG_CODE = None
 ALERTS = None
 
-cpath = str(Path("\\content"))
-tcpath = str(Path("\\translated-content"))
-uspath = str(Path("\\en-us"))
+cpath = iPath("\\content")
+tcpath = iPath("\\translated-content")
+uspath = iPath("\\en-us")
 
 valid_exts = ('.md', '.html')
 exts_dict = {'.md': '.html', '.html': '.md'}
 
 
-def plugin_loaded():
-    global CONTENT_PATH
-    global TRANSLATED_CONTENT_PATH
-    global LANG_CODE
-    global ALERTS
+def validateFile(func):
+    """
+    Decorator for validate incoming file
+    """
 
-    settings = sublime.load_settings('LionDocs.sublime-settings')
-    CONTENT_PATH = settings.get('paths').get('content')
-    TRANSLATED_CONTENT_PATH = settings.get('paths').get('translated-content')
-    LANG_CODE = settings.get('lang_code')
-    ALERTS = settings.get('alerts')
+    def wrapper(self, edit, mode):
+        file_path = iPath(self.view.file_name())
+
+        if CONTENT_PATH in file_path or TRANSLATED_CONTENT_PATH in file_path:
+            func(self, edit, mode)
+        else:
+            alert("File is not part of mdn directories!")
+    return wrapper
 
 
-def alert(message):
+def validateConfig(func):
+    """
+    Decorator for validate plugin config
+    """
+
+    def wrapper(self, edit, mode):
+        configs = [CONTENT_PATH, TRANSLATED_CONTENT_PATH, LANG_CODE, ALERTS]
+        err_count = 0
+        for value in configs:
+            if value == "":
+                err_count += 1
+
+        if err_count > 0:
+            alert("Please check LionDocs configuration, you have {0} empty values".format(err_count))
+        else:
+            func(self, edit, mode)
+    return wrapper
+
+
+def alert(message: str) -> None:
     if ALERTS:
         sublime.message_dialog(message)
+    else:
+        print(message)
+
+
+def plugin_loaded():
+    try:
+        global CONTENT_PATH
+        global TRANSLATED_CONTENT_PATH
+        global LANG_CODE
+        global ALERTS
+
+        settings = sublime.load_settings('LionDocs.sublime-settings')
+        CONTENT_PATH = iPath(settings.get('paths').get('content'))
+        TRANSLATED_CONTENT_PATH = iPath(settings.get('paths').get('translated-content'))
+        LANG_CODE = settings.get('lang_code')
+        ALERTS = settings.get('alerts')
+    except AttributeError:
+        # Error at plugin first load (and editor first load) by empty config
+        pass
 
 
 class getshaCommand(sublime_plugin.TextCommand):
@@ -51,9 +104,9 @@ class getshaCommand(sublime_plugin.TextCommand):
         """
         self.view.insert(edit, self.view.sel()[0].begin(), string)
 
+    @validateFile
+    @validateConfig
     def run(self, edit, mode):
-        # TODO: Just work when function is called in a file
-        # inside content or translated-content
         target_file = Path(self.view.file_name())
         file_ext = target_file.suffix
 
@@ -62,7 +115,7 @@ class getshaCommand(sublime_plugin.TextCommand):
             tmp = str(target_file).replace(tcpath, cpath)
 
             # replace en-us with target language
-            lang = str(Path("\\" + LANG_CODE))
+            lang = iPath("\\" + LANG_CODE)
             target_in_content = Path(tmp.replace(lang, uspath))
 
             meta = None
@@ -76,13 +129,14 @@ class getshaCommand(sublime_plugin.TextCommand):
                 target_in_content = switch_ext
 
                 if target_in_content.is_file():
+
                     shaman = Shaman(target_in_content, CONTENT_PATH)
                     meta = shaman.get_file_sha(returnas='meta')
                 else:
                     # ??? File doesn't exist in content? Update content repo
                     # raise Exception('File does not exist in content?')
-                    sublime.message_dialog("File does not exist in content?"
-                                           " Please sync your forks")
+                    alert("File does not exist in content?"
+                          " Please sync your forks")
 
             if mode == 'insert':
                 self.__insert_in_cursor(edit, meta)
@@ -94,18 +148,20 @@ class getshaCommand(sublime_plugin.TextCommand):
 
 
 class transferCommand(sublime_plugin.TextCommand):
+    @validateFile
+    @validateConfig
     def run(self, edit, mode):
-        file_to_transfer = Path(self.view.file_name())  # file in content
+        file_to_transfer = Path(self.view.file_name())
 
         # replace content with translated-content
         temp = str(file_to_transfer).replace(cpath, tcpath)
 
         # replace en-us with target language
-        lang = str(Path("\\" + LANG_CODE))
+        lang = iPath("\\" + LANG_CODE)
         final_file_path = temp.replace(uspath, lang)
 
         # get final file dir tree
-        dir_tree = str(Path(final_file_path).parent)
+        dir_tree = iPath(final_file_path, parent=True)
 
         # create dir tree if not exist
         if not os.path.exists(dir_tree):
@@ -116,11 +172,13 @@ class transferCommand(sublime_plugin.TextCommand):
             original_content = original_file.read()
 
             if mode == 'same_file':
+                # Transfer exactly same file
                 final_file.write(original_content)
 
                 alert("File transfered successfully!")
 
             elif mode == 'with_sha':
+                # Transfer exactly same file but with sha commit
                 shaman = Shaman(file_to_transfer, CONTENT_PATH)
                 meta = shaman.get_file_sha(returnas='meta')
 
