@@ -24,7 +24,7 @@ def iPath(path, parent=False):
     return str(Path(path))
 
 
-__version__ = "0.0.0"
+__version__ = "0.1.0"
 
 CONTENT_PATH = None
 TRANSLATED_CONTENT_PATH = None
