@@ -22,6 +22,8 @@ Now let's install our Plugin
 
 Remember, all this is as long as the Plugin is not part of **Package Control** channel.
 
+[Pull Request](https://github.com/wbond/package_control_channel/pull/8628) in Package Control
+
 ## Configuration
 
 Go to `Preferences` -> `Package Settings` -> `LionDocs` -> `Settings`
