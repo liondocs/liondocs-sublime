@@ -14,29 +14,40 @@ except Exception:
     from api import Shaman
 
 
+__version__ = "0.1.0"
+
+cpath = "content"
+tcpath = "translated-content"
+uspath = "en-us"
+
+valid_exts = ('.md', '.html')
+exts_dict = {'.md': '.html', '.html': '.md'}
+
+
 def iPath(path, parent=False):
     """
-    Receive path string, convert to system path and
-    return path as string
+    Receive path string, convert to system path and return path as string
     """
     if parent:
         return str(Path(path).parent)
     return str(Path(path))
 
 
-__version__ = "0.1.0"
+class Config:
+    __settings = sublime.load_settings('LionDocs.sublime-settings')
+    content = iPath(__settings.get('paths').get('content'))
+    translated_content = iPath(__settings.get('paths').get('translated-content'))
+    lang_code = __settings.get('lang_code')
+    alerts = __settings.get('alerts')
+    __configs = [content, translated_content, lang_code, alerts]
 
-CONTENT_PATH = None
-TRANSLATED_CONTENT_PATH = None
-LANG_CODE = None
-ALERTS = None
+    def isValid(self):
+        err_count = 0
+        for value in self.__configs:
+            if value == "":
+                err_count += 1
 
-cpath = iPath("\\content")
-tcpath = iPath("\\translated-content")
-uspath = iPath("\\en-us")
-
-valid_exts = ('.md', '.html')
-exts_dict = {'.md': '.html', '.html': '.md'}
+        return True if err_count == 0 else False
 
 
 def validateFile(func):
@@ -46,8 +57,9 @@ def validateFile(func):
 
     def wrapper(self, edit, mode):
         file_path = iPath(self.view.file_name())
+        config = Config()
 
-        if CONTENT_PATH in file_path or TRANSLATED_CONTENT_PATH in file_path:
+        if config.content in file_path or config.translated_content in file_path:
             func(self, edit, mode)
         else:
             alert("File is not part of mdn directories!")
@@ -60,16 +72,13 @@ def validateConfig(func):
     """
 
     def wrapper(self, edit, mode):
-        configs = [CONTENT_PATH, TRANSLATED_CONTENT_PATH, LANG_CODE, ALERTS]
-        err_count = 0
-        for value in configs:
-            if value == "":
-                err_count += 1
+        plugin_config = Config()
 
-        if err_count > 0:
-            alert("Please check LionDocs configuration, you have {0} empty values".format(err_count))
-        else:
+        if plugin_config.isValid():
             func(self, edit, mode)
+        else:
+            alert("Please check LionDocs configuration, you have {0} empty values".format(err_count))
+
     return wrapper
 
 
@@ -78,23 +87,6 @@ def alert(message: str) -> None:
         sublime.message_dialog(message)
     else:
         print(message)
-
-
-def plugin_loaded():
-    try:
-        global CONTENT_PATH
-        global TRANSLATED_CONTENT_PATH
-        global LANG_CODE
-        global ALERTS
-
-        settings = sublime.load_settings('LionDocs.sublime-settings')
-        CONTENT_PATH = iPath(settings.get('paths').get('content'))
-        TRANSLATED_CONTENT_PATH = iPath(settings.get('paths').get('translated-content'))
-        LANG_CODE = settings.get('lang_code')
-        ALERTS = settings.get('alerts')
-    except AttributeError:
-        # Error at plugin first load (and editor first load) by empty config
-        pass
 
 
 class getshaCommand(sublime_plugin.TextCommand):
@@ -112,16 +104,17 @@ class getshaCommand(sublime_plugin.TextCommand):
 
         if file_ext in valid_exts:
             # replace translated-content with content
-            tmp = str(target_file).replace(tcpath, cpath)
+            temp = str(target_file).replace(tcpath, cpath)
+            config = Config()
 
             # replace en-us with target language
-            lang = iPath("\\" + LANG_CODE)
-            target_in_content = Path(tmp.replace(lang, uspath))
+            lang = iPath("\\" + config.lang_code)
+            target_in_content = Path(temp.replace(lang, uspath))
 
             meta = None
 
             if target_in_content.is_file():
-                shaman = Shaman(target_in_content, CONTENT_PATH)  # here?
+                shaman = Shaman(target_in_content, config.content)  # here?
                 meta = shaman.get_file_sha(returnas='meta')
             else:
                 # try switching extension for find target file
@@ -130,7 +123,7 @@ class getshaCommand(sublime_plugin.TextCommand):
 
                 if target_in_content.is_file():
 
-                    shaman = Shaman(target_in_content, CONTENT_PATH)
+                    shaman = Shaman(target_in_content, config.content)
                     meta = shaman.get_file_sha(returnas='meta')
                 else:
                     # ??? File doesn't exist in content? Update content repo
@@ -155,9 +148,10 @@ class transferCommand(sublime_plugin.TextCommand):
 
         # replace content with translated-content
         temp = str(file_to_transfer).replace(cpath, tcpath)
+        config = Config()
 
         # replace en-us with target language
-        lang = iPath("\\" + LANG_CODE)
+        lang = iPath("\\" + config.lang_code)
         final_file_path = temp.replace(uspath, lang)
 
         # get final file dir tree
@@ -179,7 +173,7 @@ class transferCommand(sublime_plugin.TextCommand):
 
             elif mode == 'with_sha':
                 # Transfer exactly same file but with sha commit
-                shaman = Shaman(file_to_transfer, CONTENT_PATH)
+                shaman = Shaman(file_to_transfer, config.content)
                 meta = shaman.get_file_sha(returnas='meta')
 
                 sep_index = [i.start() for i in re.finditer('---', original_content)][1]  # get separator index
