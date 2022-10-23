@@ -91,7 +91,7 @@ def validateConfig(func):
             func(self, edit, mode)
         else:
             log("[CONFIG  ] Configuration parameters are not valid, please check")
-            alert("Please check LionDocs configuration, you have {0} empty values".format(err_count))
+            alert("Please check LionDocs configuration, you have empty parameters")
 
     return wrapper
 
