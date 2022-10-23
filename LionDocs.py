@@ -24,13 +24,20 @@ valid_exts = ('.md', '.html')
 exts_dict = {'.md': '.html', '.html': '.md'}
 
 
-def iPath(path, parent=False):
+def iPath(path: object, parent: bool = False) -> str:
     """
     Receive path string, convert to system path and return path as string
     """
     if parent:
         return str(Path(path).parent)
     return str(Path(path))
+
+
+def log(message: str) -> None:
+    """
+    Log function for track plugin internal progress
+    """
+    print(message)
 
 
 class Config:
@@ -42,6 +49,7 @@ class Config:
     __configs = [content, translated_content, lang_code, alerts]
 
     def isValid(self):
+
         err_count = 0
         for value in self.__configs:
             if value == "":
@@ -60,8 +68,10 @@ def validateFile(func):
         config = Config()
 
         if config.content in file_path or config.translated_content in file_path:
+            log("[VALIDATION] Selected file is valid")
             func(self, edit, mode)
         else:
+            log("[VALIDATION] Selected file is not part of setted directories")
             alert("File is not part of mdn directories!")
     return wrapper
 
@@ -75,8 +85,10 @@ def validateConfig(func):
         plugin_config = Config()
 
         if plugin_config.isValid():
+            log("[CONFIG  ] Configuration parameters are valid")
             func(self, edit, mode)
         else:
+            log("[CONFIG  ] Configuration parameters are not valid, please check")
             alert("Please check LionDocs configuration, you have {0} empty values".format(err_count))
 
     return wrapper
@@ -103,6 +115,8 @@ class getshaCommand(sublime_plugin.TextCommand):
         file_ext = target_file.suffix
 
         if file_ext in valid_exts:
+            log(f"[INFO    ] Selected file have a valid extension [{*valid_exts}]")
+
             # replace translated-content with content
             temp = str(target_file).replace(tcpath, cpath)
             config = Config()
@@ -114,22 +128,26 @@ class getshaCommand(sublime_plugin.TextCommand):
             meta = None
 
             if target_in_content.is_file():
+                log(f"[INFO    ] File \"{target_in_content}\" exist")
+
                 shaman = Shaman(target_in_content, config.content)  # here?
                 meta = shaman.get_file_sha(returnas='meta')
             else:
+                log(f"[INFO    ] File \"{target_in_content}\" doesn't exist. Switching extension")
+
                 # try switching extension for find target file
                 switch_ext = target_in_content.with_suffix(exts_dict[file_ext])
                 target_in_content = switch_ext
 
                 if target_in_content.is_file():
+                    log(f"[INFO    ] File \"{target_in_content}\" exist")
 
                     shaman = Shaman(target_in_content, config.content)
                     meta = shaman.get_file_sha(returnas='meta')
                 else:
                     # ??? File doesn't exist in content? Update content repo
                     # raise Exception('File does not exist in content?')
-                    alert("File does not exist in content?"
-                          " Please sync your forks")
+                    log(f"[FATAL   ] File does not exist in content, please sync your fork")
 
             if mode == 'insert':
                 self.__insert_in_cursor(edit, meta)
