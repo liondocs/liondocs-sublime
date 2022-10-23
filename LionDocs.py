@@ -41,12 +41,14 @@ def log(message: str) -> None:
 
 
 class Config:
-    __settings = sublime.load_settings('LionDocs.sublime-settings')
-    content = iPath(__settings.get('paths').get('content'))
-    translated_content = iPath(__settings.get('paths').get('translated-content'))
-    lang_code = __settings.get('lang_code')
-    alerts = __settings.get('alerts')
-    __configs = [content, translated_content, lang_code, alerts]
+    def __init__(self):
+        super(Config, self).__init__()
+        self.__settings = sublime.load_settings('LionDocs.sublime-settings')
+        self.content = iPath(self.__settings.get('paths').get('content'))
+        self.translated_content = iPath(self.__settings.get('paths').get('translated-content'))
+        self.lang_code = self.__settings.get('lang_code')
+        self.alerts = self.__settings.get('alerts')
+        self.__configs = [self.content, self.translated_content, self.lang_code, self.alerts]
 
     def isValid(self):
 
@@ -95,7 +97,9 @@ def validateConfig(func):
 
 
 def alert(message: str) -> None:
-    if Config.alerts:
+    config = Config()
+
+    if config.alerts:
         sublime.message_dialog(message)
     else:
         log(message)
@@ -122,7 +126,7 @@ class getshaCommand(sublime_plugin.TextCommand):
             config = Config()
 
             # replace en-us with target language
-            lang = iPath("\\" + config.lang_code)
+            lang = iPath(os.path.sep + config.lang_code)
             target_in_content = Path(temp.replace(lang, uspath))
 
             meta = None
