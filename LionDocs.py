@@ -16,9 +16,9 @@ except Exception:
 
 __version__ = "0.1.0"
 
-cpath = "content"
-tcpath = "translated-content"
-uspath = "en-us"
+cpath = os.path.sep + "content"
+tcpath = os.path.sep + "translated-content"
+uspath = os.path.sep + "en-us"
 
 valid_exts = ('.md', '.html')
 exts_dict = {'.md': '.html', '.html': '.md'}
@@ -95,10 +95,10 @@ def validateConfig(func):
 
 
 def alert(message: str) -> None:
-    if ALERTS:
+    if Config.alerts:
         sublime.message_dialog(message)
     else:
-        print(message)
+        log(message)
 
 
 class getshaCommand(sublime_plugin.TextCommand):
@@ -147,7 +147,8 @@ class getshaCommand(sublime_plugin.TextCommand):
                 else:
                     # ??? File doesn't exist in content? Update content repo
                     # raise Exception('File does not exist in content?')
-                    log("[FATAL   ] File does not exist in content, please sync your fork")
+                    log("[FATAL   ] File '{}' doesn't exist, please sync your fork".format(target_in_content))
+                    return
 
             if mode == 'insert':
                 self.__insert_in_cursor(edit, meta)
@@ -169,7 +170,7 @@ class transferCommand(sublime_plugin.TextCommand):
         config = Config()
 
         # replace en-us with target language
-        lang = iPath("\\" + config.lang_code)
+        lang = iPath(os.path.sep + config.lang_code)
         final_file_path = temp.replace(uspath, lang)
 
         # get final file dir tree
