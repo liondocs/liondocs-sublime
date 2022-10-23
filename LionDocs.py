@@ -24,7 +24,7 @@ valid_exts = ('.md', '.html')
 exts_dict = {'.md': '.html', '.html': '.md'}
 
 
-def iPath(path: object, parent: bool = False) -> str:
+def iPath(path: str, parent: bool = False) -> str:
     """
     Receive path string, convert to system path and return path as string
     """
