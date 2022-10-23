@@ -115,7 +115,7 @@ class getshaCommand(sublime_plugin.TextCommand):
         file_ext = target_file.suffix
 
         if file_ext in valid_exts:
-            log(f"[INFO    ] Selected file have a valid extension [{*valid_exts}]")
+            log("[INFO    ] Selected file have a valid extension")
 
             # replace translated-content with content
             temp = str(target_file).replace(tcpath, cpath)
@@ -128,26 +128,26 @@ class getshaCommand(sublime_plugin.TextCommand):
             meta = None
 
             if target_in_content.is_file():
-                log(f"[INFO    ] File \"{target_in_content}\" exist")
+                log("[INFO    ] File '{0}' exist".format(target_in_content))
 
                 shaman = Shaman(target_in_content, config.content)  # here?
                 meta = shaman.get_file_sha(returnas='meta')
             else:
-                log(f"[INFO    ] File \"{target_in_content}\" doesn't exist. Switching extension")
+                log("[INFO    ] File '{}' doesn't exist. Switching extension".format(target_in_content))
 
                 # try switching extension for find target file
                 switch_ext = target_in_content.with_suffix(exts_dict[file_ext])
                 target_in_content = switch_ext
 
                 if target_in_content.is_file():
-                    log(f"[INFO    ] File \"{target_in_content}\" exist")
+                    log("[INFO    ] File '{0}' exist".format(target_in_content))
 
                     shaman = Shaman(target_in_content, config.content)
                     meta = shaman.get_file_sha(returnas='meta')
                 else:
                     # ??? File doesn't exist in content? Update content repo
                     # raise Exception('File does not exist in content?')
-                    log(f"[FATAL   ] File does not exist in content, please sync your fork")
+                    log("[FATAL   ] File does not exist in content, please sync your fork")
 
             if mode == 'insert':
                 self.__insert_in_cursor(edit, meta)
