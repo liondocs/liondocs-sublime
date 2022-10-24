@@ -20,6 +20,8 @@ Now let's install our Plugin
 * Open **Command Palette** again, select `Install package` and press Enter
 * Search `LionDocs` and Install
 
+> It is recommended to restart the editor after installation.
+
 Remember, all this is as long as the Plugin is not part of **Package Control** channel.
 
 [Pull Request](https://github.com/wbond/package_control_channel/pull/8628) in Package Control
