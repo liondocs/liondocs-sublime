@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.1 (2022-10-24)
+### Fix
+* **core:** Usage of an unexisting variable ([`d18640b`](https://github.com/liondocs/liondocs-sublime/commit/d18640b1a8435ec97fd0131bcc0fe1aa56b9e13f))
+
 ## v0.1.0 (2022-10-22)
 ### Feature
 * **ci:** Implement semantic-release ([`701a483`](https://github.com/liondocs/liondocs-sublime/commit/701a4837e5810dde98d09e6dd6f178eaa84332a8))
