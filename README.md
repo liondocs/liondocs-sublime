@@ -74,4 +74,4 @@ mdn/
 
 So with different structures it can cause problems. The root does not necessarily have to be *mdn*, but the sub-directories must have the same name and be in the same folder.
 
-Testedin in **Windows** and **Ubuntu**
+Tested in **Windows** and **Ubuntu**
