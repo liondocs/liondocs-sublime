@@ -6,7 +6,7 @@ This is an LionDocs plugin for Sublime Text.
 
 ## Installation
 
-For now the plugin is not part of the [Package Control](https://packagecontrol.io/) plugin repository so it must be from repository.
+For now the plugin is not part of the [Package Control](https://packagecontrol.io/) plugin repository so it must be installed from repository.
 
 But first, a configuration must be added to **Package Control**:
 
