@@ -37,7 +37,7 @@ def log(mode: str, message: str) -> None:
     """
     Log function for track plugin internal progress
     """
-    mode = f"[{mode.ljust(8)}]"
+    mode = "[{}]".format(mode.ljust(8))
     print(mode, message)
 
 
