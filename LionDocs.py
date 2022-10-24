@@ -33,11 +33,12 @@ def iPath(path: str, parent: bool = False) -> str:
     return str(Path(path))
 
 
-def log(message: str) -> None:
+def log(mode: str, message: str) -> None:
     """
     Log function for track plugin internal progress
     """
-    print(message)
+    mode = f"[{mode.ljust(8)}]"
+    print(mode, message)
 
 
 class Config:
@@ -70,10 +71,10 @@ def validateFile(func):
         config = Config()
 
         if config.content in file_path or config.translated_content in file_path:
-            log("[VALIDATION] Selected file is valid")
+            log("VALIDATE", "Selected file is valid")
             func(self, edit, mode)
         else:
-            log("[VALIDATION] Selected file is not part of setted directories")
+            log("VALIDATE", "Selected file is not part of setted directories")
             alert("File is not part of mdn directories!")
     return wrapper
 
@@ -87,10 +88,10 @@ def validateConfig(func):
         plugin_config = Config()
 
         if plugin_config.isValid():
-            log("[CONFIG  ] Configuration parameters are valid")
+            log("CONFIG", "Configuration parameters are valid")
             func(self, edit, mode)
         else:
-            log("[CONFIG  ] Configuration parameters are not valid, please check")
+            log("CONFIG", "Configuration parameters are not valid, please check")
             alert("Please check your LionDocs configuration")
 
     return wrapper
@@ -102,7 +103,7 @@ def alert(message: str) -> None:
     if config.alerts:
         sublime.message_dialog(message)
     else:
-        log(message)
+        log("INFO", message)
 
 
 class getshaCommand(sublime_plugin.TextCommand):
@@ -119,7 +120,7 @@ class getshaCommand(sublime_plugin.TextCommand):
         file_ext = target_file.suffix
 
         if file_ext in valid_exts:
-            log("[INFO    ] Selected file have a valid extension")
+            log("INFO", "Selected file have a valid extension")
 
             # replace translated-content with content
             temp = str(target_file).replace(tcpath, cpath)
@@ -132,26 +133,26 @@ class getshaCommand(sublime_plugin.TextCommand):
             meta = None
 
             if target_in_content.is_file():
-                log("[INFO    ] File '{0}' exist".format(target_in_content))
+                log("INFO", "File '{0}' exist".format(target_in_content))
 
                 shaman = Shaman(target_in_content, config.content)  # here?
                 meta = shaman.get_file_sha(returnas='meta')
             else:
-                log("[INFO    ] File '{}' doesn't exist. Switching extension".format(target_in_content))
+                log("INFO", "File '{}' doesn't exist. Switching extension".format(target_in_content))
 
                 # try switching extension for find target file
                 switch_ext = target_in_content.with_suffix(exts_dict[file_ext])
                 target_in_content = switch_ext
 
                 if target_in_content.is_file():
-                    log("[INFO    ] File '{0}' exist".format(target_in_content))
+                    log("INFO", "File '{0}' exist".format(target_in_content))
 
                     shaman = Shaman(target_in_content, config.content)
                     meta = shaman.get_file_sha(returnas='meta')
                 else:
                     # ??? File doesn't exist in content? Update content repo
                     # raise Exception('File does not exist in content?')
-                    log("[FATAL   ] File '{}' doesn't exist, please sync your fork".format(target_in_content))
+                    log("FATAL", "File '{}' doesn't exist, please sync your fork".format(target_in_content))
                     return
 
             if mode == 'insert':
