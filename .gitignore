@@ -1,7 +1,7 @@
 test*.*
 .idea/
 *.sublime-keymap
-LionDocs.sublime-commands
+# LionDocs.sublime-commands
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
