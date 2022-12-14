@@ -1,21 +1,21 @@
 [
   {
-    "caption":"Insert SHA to cursor position",
+    "caption":"LionDocs: Insert SHA to cursor position",
     "command": "getsha",
     "args": { "mode":"insert" }
   },
   {
-    "caption":"Copy SHA to clipboard",
+    "caption":"LionDocs: Copy SHA to clipboard",
     "command": "getsha",
     "args": { "mode":"clipboard" }
   },
   {
-  	"caption": "Transfer file",
+  	"caption": "LionDocs: Transfer file",
     "command": "transfer",
     "args": { "mode":"same_file" }
   },
   {
-    "caption": "Transfer file + SHA",
+    "caption": "LionDocs: Transfer file + SHA",
     "command": "transfer",
     "args": { "mode":"with_sha" }
   }
