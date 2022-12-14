@@ -4,7 +4,7 @@ process of MDN documents. This is the version for the Sublime Text Editor.
 
 ---
 
-Please, remember configure the PLugin in Preferences -> Package Settings -> LionDocs -> Settings
+Please, remember configure the Plugin in Preferences -> Package Settings -> LionDocs -> Settings
 
 ---
 
