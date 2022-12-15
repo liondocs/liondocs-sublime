@@ -7,19 +7,6 @@ class Shaman(object):
     It is in charge of obtaining the SHA of the received file. If the repo_path
     parameter is passed, the SHA of the same file is obtained but in the
     content repository.
-
-    ...
-
-    Attributes
-    ----------
-    target_path : pathlib.WindowsPath
-        absolute file path
-    repo_path : pathlib.WindowsPath
-        repository from which the file is to be obtained will be used to obtain
-        the relative path of the file received.
-
-    Methods
-    -------
     """
 
     def __init__(self, target_path, repo_path):
