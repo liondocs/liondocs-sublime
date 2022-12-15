@@ -4,11 +4,11 @@ This is an LionDocs plugin for Sublime Text.
 
 [Demo](https://www.youtube.com/watch?v=RRPShnY_10E)
 
-## Installation
+## Install
 
 Install `LionDocs` with [Package Control](https://packagecontrol.io) and restart Sublime.
 
-## Configuration
+## Configure
 
 Go to `Preferences` -> `Package Settings` -> `LionDocs` -> `Settings`
 
@@ -31,7 +31,7 @@ Your user configuration file should look like this:
 
 > **Note:** Silent operations are those that although they are executed correctly, they do not instantly show some sign that they were executed. As for example the transfer of a file.
 
-## Usage
+## Use
 
 Plugin functions are executed from the Sublime Text Command Palette.
 
