@@ -1,3 +1,4 @@
 [tool.semantic_release]
 version_variable = "LionDocs.py:__version__"
 branch = "main"
+version_source = "tag"
