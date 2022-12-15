@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2022-12-15)
+### Feature
+* Now part of the Package Control Family
+
 ## v0.1.1 (2022-10-24)
 ### Fix
 * **core:** Usage of an unexisting variable ([`d18640b`](https://github.com/liondocs/liondocs-sublime/commit/d18640b1a8435ec97fd0131bcc0fe1aa56b9e13f))
