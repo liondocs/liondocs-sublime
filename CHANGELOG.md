@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2022-12-15)
+### Feature
+* Remove jsonc ([`86c7d26`](https://github.com/liondocs/liondocs-sublime/commit/86c7d267b91e21e55647139ad8a3db26d2b99c21))
+
 ## v0.1.1 (2022-10-24)
 ### Fix
 * **core:** Usage of an unexisting variable ([`d18640b`](https://github.com/liondocs/liondocs-sublime/commit/d18640b1a8435ec97fd0131bcc0fe1aa56b9e13f))

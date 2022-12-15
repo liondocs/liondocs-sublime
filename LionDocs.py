@@ -14,7 +14,7 @@ except Exception:
     from api import Shaman
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 cpath = os.path.sep + "content"
 tcpath = os.path.sep + "translated-content"
